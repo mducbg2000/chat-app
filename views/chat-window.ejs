@@ -1,0 +1,19 @@
+<div class="selected-user">
+    <span>To: <span class="name"><%= room.name %></span></span>
+    <% if (room.group) { %>
+        <button class="btn btn-danger" style="right: 0; position: absolute;top: 10px;">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+        <button class="btn btn-success" style="right: 50px; position: absolute;top: 10px;">
+            <i class="fas fa-share-alt-square"></i>
+        </button>
+    <% } %>
+</div>
+<div class="chat-container">
+    <ul data-room-id="<%= room._id %>" class="chat-box chatContainerScroll">
+
+    </ul>
+    <div class="form-group mt-3 mb-0">
+        <input type="text" class="form-control" placeholder="Type your message here..."/>
+    </div>
+</div>

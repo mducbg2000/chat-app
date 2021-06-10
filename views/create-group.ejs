@@ -1,0 +1,28 @@
+<div class="card create-group-from">
+    <img class="card-img-top" src="/img/camera.png" alt="Group avatar"
+         id="group-img"
+         onclick="document.getElementById('input-group-img').click()">
+    <input id="input-group-img" type="file" accept="image/*" multiple style="display: none"/>
+    <div class="card-body">
+        <h5 id="group-name" contenteditable="true" class="card-title text-center">Group Name</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <% contacts.forEach(contact => { %>
+            <li class="list-group-item">
+                <img src="<%=contact.avatar%>" alt="User avatar">
+                <label>
+                    <%= contact.name %>
+                    <input class="form-check-input me-1" type="checkbox" value="<%= contact._id %>"/>
+                </label>
+            </li>
+        <% }) %>
+    </ul>
+    <div class="card-body">
+        <div class="text-center">
+            <button id="save-btn" class="btn btn-primary" style="margin: auto" disabled>
+                <i class="fas fa-save"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</div>

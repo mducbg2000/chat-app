@@ -1,0 +1,13 @@
+<% if (room != null) {%>
+<li class="person" data-chat="<%= room._id %>" onclick="openChatWindow(`<%= room._id %>`, `<%= room.name %>`, <%= room.group%>)">
+    <div class="user">
+        <img src="<%= room.avatar %>">
+        <% if(!room.group) { %>
+            <span class="status <%= room.online ? 'online' : 'offline' %>"></span>
+        <% } %>
+    </div>
+    <p class="name-time">
+        <span class="name"><%= room.name %></span>
+    </p>
+</li>
+<% } %>

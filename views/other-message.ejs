@@ -1,0 +1,13 @@
+<li class="chat-left">
+    <div class="chat-avatar">
+        <img src="<%= owner.avatar %>" alt="Avatar">
+        <div class="chat-name"><%= owner.name %></div>
+    </div>
+    <div class="chat-text">
+        <%= msg.content %>
+        <% if (msg.content == null || msg.content === '') { %>
+            <img src="<%= msg.img %>" alt="img"/>
+        <% } %>
+    </div>
+    <div class="chat-hour"><%= msg.createdAt %></div>
+</li>

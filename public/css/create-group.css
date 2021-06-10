@@ -1,0 +1,33 @@
+[contenteditable] {
+    outline: 0 solid transparent;
+}
+
+#create-group-form img {
+    border-radius: 50px;
+    border: solid 1px lightgray;
+}
+
+.card-img-top {
+    margin: auto;
+    max-width: 60px;
+    cursor: pointer;
+}
+
+.list-group-item img {
+    max-width: 10%;
+}
+
+.list-group-item label {
+    width: 85%;
+    position: relative
+}
+
+label input{
+    right: 0; position: absolute
+}
+
+.list-group-flush {
+    max-height: 400px;
+    -ms-overflow-y: scroll;
+}
+

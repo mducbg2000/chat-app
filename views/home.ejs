@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+    <link href="/css/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script>window.localStorage.setItem('userId', '<%= user._id %>')</script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="content-wrapper">
+        <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding: 0 !important;">
+                <div class="card m-0">
+                    <div class="row no-gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                            <div class="users-container">
+                                <ul class="users">
+                                    <li class="person" data-user-id="<%= user._id %>">
+                                        <div class="user">
+                                            <img src="<%= user.avatar %>" alt="Your avatar">
+                                        </div>
+                                        <p class="name-time">
+                                            <span class="name"><%= user.name %></span>
+                                        </p>
+                                        <button id="newGroup" class="btn btn-primary" style="right: 15px; position: absolute">
+                                            Create Group
+                                            <i class="fas fa-users"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="chat-search-box">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="Search">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-info">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="users ">
+                                    <% rooms.forEach( room => { %>
+                                        <%- include('user-item', {room: room}) %>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="main-window" class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" style="height: 100vh">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="socket.io/socket.io.min.js"></script>
+<script src="/js/chat.js"></script>
+</html>
