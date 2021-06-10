@@ -4,15 +4,6 @@ const MessageBucket = require('../models/message-bucket')
 const roomService = require('./room.service')
 module.exports = {
 
-    addSingleMessage: async (from, to, content, img) => {
-        try {
-            let room = await roomService.getSingleChatRoom(from, to);
-            return await module.exports.addMessage(from, room, content, img)
-        } catch (e) {
-            throw e
-        }
-    },
-
     addMessage: async (from, room, content, img) => {
         try {
             let message = {
@@ -42,14 +33,6 @@ module.exports = {
         }
     },
 
-    getSomeMessagesInSingleRoom: async (userId1, userId2, page) => {
-        try {
-            let room = roomService.getSingleChatRoom(userId1, userId2);
-            return await module.exports.getSomeMessagesInRoom(room, page)
-        } catch (e) {
-            throw e
-        }
-    },
 
     getSomeMessagesInRoom: async (roomId, page) => {
         try {

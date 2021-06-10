@@ -32,7 +32,7 @@ receiveMessage = (roomId, from, avatar, name, content, img) => {
         if (from === userId) {
             displayMyMessage(avatar, content, img, name)
         } else displayOtherMessage(avatar, content, img, name)
-    }
+    } else document.getElementById(`noti-${roomId}`).style.display = 'contents'
 }
 
 displayMyMessage = (avatar, content, img, name) => {
@@ -64,6 +64,7 @@ displayOtherMessage = (avatar, content, img, name) => {
 }
 
 openChatWindow = async (roomId, name, isGroup) => {
+    document.getElementById(`noti-${roomId}`).style.display = 'none'
     mainWindow.innerHTML = generateChatWindow(roomId, name, isGroup);
     await getMessagesHistory(roomId, 1);
     await getMessagesHistory(roomId, 2);
@@ -222,4 +223,29 @@ document.getElementById('newGroup').addEventListener('click', async () => {
 
 })
 
+// -------------------------------------------------------------------
+// -------------------------------------------------------------------
 
+searchUser = () => {
+    let name = document.getElementById('search-user').value;
+    fetch(`/search/${name}`)
+        .then( res => {
+            res.text().then( html => {
+                mainWindow.innerHTML = html
+            })
+        })
+}
+
+document.getElementById('search-user').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault()
+        searchUser()
+    }
+})
+
+contact = (e) => {
+    let btn = e.target
+    fetch(`contact/${btn.value}`).then( r => {
+        window.location.reload()
+    })
+}

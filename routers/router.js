@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const roomService = require('../services/room.service')
 const userService = require('../services/user.service')
-const User = require ('../models/user')
+const User = require('../models/user')
 const messageService = require('../services/message.service')
 const ejs = require('ejs')
 const path = require('path')
@@ -15,14 +15,14 @@ router.get('/home', async (req, res) => {
     })
 })
 
-router.get('/user/:name', async (req, res) => {
+router.get('/search/:name', async (req, res) => {
     try {
-        let listRoom = await userService.searchByName(req.params.name, req.user._id);
-        let rooms = await Promise.all(listRoom)
-        res.status(200).send({
-            msg: 'OK',
-            data: rooms
+        let users = await userService.searchByName(req.params.name, req.user._id);
+        let html = await ejs.renderFile(path.join(process.cwd(), '/views/search-result.ejs'), {
+            users: users
         })
+        res.set('Content-Type', 'text/html');
+        res.send(html)
     } catch (e) {
         res.status(400).send({
             msg: e
@@ -34,7 +34,7 @@ router.get('/out/:roomId', async (req, res) => {
     try {
         await roomService.outGroup(req.user._id, req.params.roomId)
         res.status(200).send({
-            msg:'OK'
+            msg: 'OK'
         })
     } catch (e) {
         res.status(400).send({
@@ -105,6 +105,27 @@ router.get('/create-form', async (req, res) => {
         res.set('Content-Type', 'text/html')
         res.send(html)
     } catch (e) {
+        res.status(400).send({
+            msg: e
+        })
+    }
+})
+
+router.get('/contact/:userId', async (req, res) => {
+    try {
+        let r = await roomService.contact(req.user._id, req.params.userId)
+        console.log(r)
+        if (r != null)
+            res.status(200).send({
+                msg: 'OK',
+                data: r
+            })
+        else
+            res.status(400).send({
+                msg: 'Error',
+            })
+    } catch (e) {
+        console.log(e)
         res.status(400).send({
             msg: e
         })

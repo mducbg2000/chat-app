@@ -41,27 +41,11 @@ module.exports = {
         }
     },
 
-    getSingleChatRoom: async (meId, anotherUserId) => {
+    contact: async (meId, anotherUserId) => {
         try {
-            let r = await Room.findOne({
-                $and: [{
-                    members: {
-                        $all: [meId, anotherUserId]
-                    }
-                }, {
-                    members: {
-                        $size: 2
-                    }
-                }]
-            })
-            if (r === null) {
-                r = await Room.create({members: [meId, anotherUserId], group: false})
-            }
-            let anotherUser = await User.findById(anotherUserId);
-            r.avatar = anotherUser.avatar;
-            r.name = anotherUser.name;
-            return r
+            return await Room.create({members: [meId, anotherUserId], group: false})
         } catch (e) {
+            console.log(e)
             throw e
         }
     },

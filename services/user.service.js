@@ -8,6 +8,7 @@ module.exports = {
                 name: name,
                 email: email,
                 pwd: pwd,
+                avatar: '/img/avatar.png'
             })
         } catch (e) {
             throw e
@@ -27,14 +28,31 @@ module.exports = {
 
     searchByName: async (name, userId) => {
         try {
-            let userList =  await User.find({name: new RegExp(name, 'i')}).select('name')
-            return userList.map(async user => {
-                return await roomService.getSingleChatRoom(userId, user._id)
-            })
+            let userList =  await User.find({name: new RegExp(name, 'i')}).select('_id name avatar')
+            let result = []
+            for (let user of userList) {
+                let r = await Room.findOne({
+                    $and: [{
+                        members: {
+                            $all: [userId, user._id]
+                        }
+                    }, {
+                        members: {
+                            $size: 2
+                        }
+                    }, {
+                        group: false
+                    }]
+                })
+                user.isContact = r != null;
+                if (user._id.toString() !== userId.toString()) result.push(user)
+            }
+            return result
         } catch (e) {
             throw e
         }
     },
+
     getContactList: async (userId) => {
         try {
             let listRoom = await Room
@@ -48,4 +66,5 @@ module.exports = {
             throw e
         }
     }
+
 }

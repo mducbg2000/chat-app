@@ -1,0 +1,17 @@
+<ul class="list-group list-group-flush search-result">
+    <% users.forEach( u => { %>
+    <li class="list-group-item">
+        <img src="<%= u.avatar %>" alt="User avatar">
+        <label>
+            <%= u.name %>
+            <button value="<%= u._id %>" onclick="contact(event)" class="btn btn-primary" style="position: absolute; right: 0"
+                    <% if (u.isContact) { %>
+                        disabled
+                    <% } %> >
+                Contact
+                <i class="fas fa-user-plus"></i>
+            </button>
+        </label>
+    </li>
+    <% }) %>
+</ul>
